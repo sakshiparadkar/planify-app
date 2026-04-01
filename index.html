@@ -25,3 +25,27 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0a0a0a;color:#e8e4dc
 .vt-btn{padding:7px 15px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:none;color:#b0aca4;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif}
 .vt-btn.on{background:#e8e4dc;color:#111}
 .vt-btn:hover:not(.on){color:#fff}
+.nbar{border-radius:12px;padding:13px 16px;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;font-weight:600}
+.nbar-off{background:#181300;border:1.5px solid #3a2800;color:#d4a030}
+.nbar-on{background:#071410;border:1.5px solid #143322;color:#4dd472}
+.nbar-sub{font-size:11px;font-weight:500;margin-top:3px;opacity:.7}
+.week-card{background:#131313;border:1.5px solid #252525;border-radius:14px;padding:16px 18px;margin-bottom:1.25rem}
+.week-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.week-label{font-size:11px;font-weight:800;color:#e8e4dc;text-transform:uppercase;letter-spacing:.12em}
+.week-pct{font-size:1.7rem;font-weight:800;letter-spacing:-.04em;color:#fff}
+.week-sub{font-size:12px;color:#ccc8c0;margin-top:2px;font-weight:500}
+.bar-bg{background:#202020;border-radius:8px;height:7px;overflow:hidden}
+.bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#1e7a3a,#4dd472);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.week-days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:12px}
+.wd{text-align:center;font-size:10px;font-weight:700}
+.wd-name{color:#d0ccc4;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+.wd-dot{width:26px;height:26px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800}
+.wd-done{background:#0b1e10;color:#4dd472;border:1.5px solid #1a4028}
+.wd-miss{background:#1c0e0e;color:#c06060;border:1.5px solid #2e1818}
+.wd-none{background:#252525;color:#ccc8c0;border:1.5px solid #383838}
+.wd-today{border-color:#4dd472 !important;box-shadow:0 0 0 2px rgba(77,212,114,.15)}
+.wd{cursor:pointer}
+.wd:hover .wd-dot{transform:scale(1.12);filter:brightness(1.2)}
+.wd-dot{transition:transform .15s,filter .15s}
+.wd-sel .wd-dot{box-shadow:0 0 0 3px rgba(106,158,224,.45)!important;border-color:#6a9ee0!important}
+.wd-sel .wd-name{color:#6a9ee0}
