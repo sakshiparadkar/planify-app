@@ -63,3 +63,37 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0a0a0a;color:#e8e4dc
 .section-header span{font-size:11px;font-weight:800;color:#ccc8c0;text-transform:uppercase;letter-spacing:.12em}
 .section-line{flex:1;height:1px;background:#282828}
 .list{display:flex;flex-direction:column;gap:8px}
+.card{background:#131313;border:1.5px solid #222;border-radius:13px;padding:14px 15px;transition:all .18s;position:relative}
+.card:hover{border-color:#333;background:#161616;transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.card.is-today{border-left:3px solid #4dd472}
+.card.is-past{border-left:3px solid #2a2a2a}
+.card.is-done{opacity:.5}
+.card.is-done:hover{opacity:.6}
+.card-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.card-left{display:flex;align-items:flex-start;gap:11px;flex:1;min-width:0}
+.check{width:22px;height:22px;border-radius:7px;border:1.5px solid #383838;background:#0f0f0f;cursor:pointer;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.check:hover{border-color:#4dd472;background:#0b1e10}
+.check.done{background:#0b1e10;border-color:#1a4028}
+.check.done::after{content:'✓';font-size:12px;color:#4dd472;font-weight:900}
+.card-body{flex:1;min-width:0}
+.card-top-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+.pri-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pri-high{background:#e05050}
+.pri-medium{background:#d4a030}
+.pri-low{background:#4dd472}
+.ctitle{font-size:15px;font-weight:700;letter-spacing:-.025em;color:#f0ece4;line-height:1.35;transition:all .2s}
+.ctitle.done{text-decoration:line-through;color:#4a4a4a}
+.cnote{font-size:12.5px;color:#b0aca4;line-height:1.6;margin-bottom:10px;margin-top:4px;word-break:break-word}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;line-height:1}
+.t-today{background:#081510;color:#4dd472;border:1px solid #143322}
+.t-future{background:#090f1c;color:#6a9ee0;border:1px solid #102040}
+.t-past{background:#1e1e1e;color:#ccc8c0;border:1px solid #333}
+.t-done{background:#1a1a1a;color:#b0aca4;border:1px solid #2a2a2a}
+.t-notif{background:#091510;color:#3dc060;border:1px solid #123322}
+.t-repeat{background:#160a1e;color:#9868d8;border:1px solid #260f38}
+.t-time{background:#1e1e1e;color:#ccc8c0;border:1px solid #333}
+.t-pri-high{background:#1a0808;color:#e05050;border:1px solid #2e1010}
+.t-pri-med{background:#180e00;color:#c89020;border:1px solid #2e2000}
+.t-pri-low{background:#081510;color:#4dd472;border:1px solid #143322}
+.card-acts{display:flex;gap:6px;flex-shrink:0;align-items:flex-start;margin-top:1px}
