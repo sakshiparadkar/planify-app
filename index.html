@@ -97,3 +97,20 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0a0a0a;color:#e8e4dc
 .t-pri-med{background:#180e00;color:#c89020;border:1px solid #2e2000}
 .t-pri-low{background:#081510;color:#4dd472;border:1px solid #143322}
 .card-acts{display:flex;gap:6px;flex-shrink:0;align-items:flex-start;margin-top:1px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.cal-month{font-size:1.15rem;font-weight:800;letter-spacing:-.03em;color:#f0ece4}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-head{text-align:center;font-size:10px;font-weight:800;color:#ccc8c0;text-transform:uppercase;padding:7px 0;letter-spacing:.08em}
+.cal-day{min-height:62px;background:#131313;border:1px solid #1e1e1e;border-radius:9px;padding:6px;cursor:pointer;transition:all .15s;position:relative}
+.cal-day:hover{border-color:#333;background:#191919}
+.cal-day.today{border-color:#4dd472;background:#071410}
+.cal-day.other-month{opacity:.25}
+.cal-day.selected{border-color:#6a9ee0;background:#090f1c}
+.cal-dn{font-size:11px;font-weight:700;color:#ccc8c0;margin-bottom:4px}
+.cal-day.today .cal-dn{color:#4dd472;font-weight:800}
+.cal-dots{display:flex;flex-wrap:wrap;gap:2px}
+.cal-dot{width:5px;height:5px;border-radius:50%;background:#4dd472}
+.cal-dot.done{background:#303030}
+.cal-dot.repeat{background:#8050c0}
+.cal-sel-tasks{background:#131313;border:1.5px solid #222;border-radius:13px;padding:15px;margin-top:.85rem}
+.cal-sel-title{font-size:11px;font-weight:800;color:#ccc8c0;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
