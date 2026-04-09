@@ -159,3 +159,23 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#0a0a0a;color:#e8e4dc
 <body>
 <div class="app" id="root"></div>
 <div class="toast" id="toastEl"></div>
+<script>
+const SK='tp8_tasks', TK='tp8_time';
+let tasks=[], remindTime='08:00';
+let view='list', tab='today', addOpen=false, settOpen=false, editId=null;
+let calYear=new Date().getFullYear(), calMonth=new Date().getMonth(), calSel=null, weekSel=null;
+const timers={};
+
+function load(){
+  try{tasks=JSON.parse(localStorage.getItem(SK)||'[]');}catch(e){tasks=[];}
+  remindTime=localStorage.getItem(TK)||'08:00';
+}
+function save(){
+  localStorage.setItem(SK,JSON.stringify(tasks));
+  localStorage.setItem(TK,remindTime);
+}
+
+const td=()=>{
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+};
