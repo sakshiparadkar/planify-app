@@ -179,3 +179,32 @@ const td=()=>{
   const d=new Date();
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 };
+const h=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function fmtS(d){return d?new Date(d+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'}):''}
+function fmtL(d){return d?new Date(d+'T00:00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):''}
+
+function to12(t24){
+  if(!t24||!t24.includes(':')) return {h:'',m:'00',ap:'AM'};
+  const [hh,mm]=t24.split(':').map(Number);
+  const ap=hh>=12?'PM':'AM';
+  const h12=(hh%12)||12;
+  return {h:String(h12), m:String(mm).padStart(2,'0'), ap};
+}
+function to24(h12,m,ap){
+  let hh=parseInt(h12)||0;
+  if(ap==='PM'&&hh!==12) hh+=12;
+  if(ap==='AM'&&hh===12) hh=0;
+  return String(hh).padStart(2,'0')+':'+String(m||'00').padStart(2,'0');
+}
+function fmt12(t24){
+  if(!t24) return '';
+  const {h,m,ap}=to12(t24);
+  if(!h) return '';
+  return h+':'+m+' '+ap;
+}
+
+function toast(msg,type=''){
+  const t=document.getElementById('toastEl');
+  t.textContent=msg;t.className='toast show'+(type?' '+type:'');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.className='toast',3200);
+}
