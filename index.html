@@ -250,3 +250,46 @@ function getAllForRange(from,to){
   });
   return all;
 }
+function isInstanceDone(inst){
+  if(inst._base){
+    const base=tasks.find(t=>t.id===inst._base);
+    return base&&(base.completedDates||[]).includes(inst.date);
+  }
+  return inst.completed||false;
+}
+
+function toggleDone(taskId, date){
+  const t=tasks.find(t=>t.id===taskId);
+  if(!t)return;
+  if(t.repeat&&t.repeat!=='none'){
+    const arr=t.completedDates||[];
+    const idx=arr.indexOf(date);
+    if(idx>=0) arr.splice(idx,1);
+    else arr.push(date);
+    t.completedDates=arr;
+  } else {
+    t.completed=!t.completed;
+  }
+  save();render();
+}
+
+function getWeekProgress(){
+  const now=new Date();
+  const dow=now.getDay();
+  const monday=new Date(now);monday.setDate(now.getDate()-(dow===0?6:dow-1));
+  const days=[];
+  for(let i=0;i<7;i++){
+    const d=new Date(monday);d.setDate(monday.getDate()+i);
+    days.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'));
+  }
+  const from=days[0],to=days[6];
+  const instances=getAllForRange(from,to);
+  let done=0,total=0;
+  days.forEach(ds=>{
+    const dayTasks=instances.filter(t=>t.date===ds);
+    total+=dayTasks.length;
+    done+=dayTasks.filter(t=>isInstanceDone(t)).length;
+  });
+  const pct=total===0?0:Math.round(done/total*100);
+  return{days,done,total,pct};
+}
