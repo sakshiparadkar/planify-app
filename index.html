@@ -293,3 +293,57 @@ function getWeekProgress(){
   const pct=total===0?0:Math.round(done/total*100);
   return{days,done,total,pct};
 }
+const canNotif=()=>'Notification' in window;
+const isGranted=()=>canNotif()&&Notification.permission==='granted';
+
+function enableNotif(){
+  if(!canNotif()){toast('Not supported','err');return;}
+  Notification.requestPermission().then(p=>{
+    if(p==='granted'){toast('Notifications enabled!','ok');scheduleAll();}
+    else if(p==='denied') toast('Blocked — click the lock icon in address bar → Notifications → Allow','err');
+    else toast('Please click Allow when the browser asks','');
+    render();
+  }).catch(()=>toast('Could not request permission','err'));
+}
+
+const REMINDER_OFFSETS={'at':0,'10min':10,'1hr':60,'1day':24*60};
+const REMINDER_LABELS={'at':'At time','10min':'10 min before','1hr':'1 hr before','1day':'1 day before'};
+
+function fireNotif(task, label){
+  if(!isGranted())return;
+  new Notification('📋 Task Reminder',{
+    body:(label&&label!=='At time'?label+': ':'')+task.title
+      +(task.notes?'\n'+task.notes:'')+(task.time?'  ⏰ '+fmt12(task.time):''),
+    tag:'t-'+task.id+'-'+label,
+    requireInteraction:true
+  });
+}
+
+function scheduleOne(task){
+  if(!isGranted())return;
+  Object.keys(timers).filter(k=>k.startsWith(task.id+'-')).forEach(k=>{clearTimeout(timers[k]);delete timers[k];});
+  const reminders=task.reminders&&task.reminders.length?task.reminders:['at'];
+  const [hh,mm]=(task.time||remindTime).split(':').map(Number);
+  reminders.forEach(r=>{
+    const offsetMins=REMINDER_OFFSETS[r]||0;
+    const fireAt=new Date(task.date+'T00:00:00');
+    fireAt.setHours(hh,mm,0,0);
+    fireAt.setMinutes(fireAt.getMinutes()-offsetMins);
+    const delay=fireAt-Date.now();
+    const key=task.id+'-'+r;
+    if(delay<=0){
+      if(task.date===td()&&!task.notified){fireNotif(task,REMINDER_LABELS[r]);}
+      return;
+    }
+    timers[key]=setTimeout(()=>{
+      const t=tasks.find(t=>t.id===task.id);
+      if(t&&!t.completed)fireNotif(t,REMINDER_LABELS[r]);
+      delete timers[key];
+    },delay);
+  });
+  task.scheduled=true;save();
+}
+
+function scheduleAll(){
+  tasks.filter(t=>t.date>=td()&&!t.completed).forEach(scheduleOne);
+}
