@@ -1,6 +1,6 @@
 ## 🚀 Smart Task Scheduler
 
-## 🔗 Live Application: https://planifytasks.netlify.app/
+🔗 Live Application: https://planifytasks.netlify.app/
 
 ## 📌 Project Overview
 
@@ -8,7 +8,7 @@ The Smart Task Scheduler is a web-based productivity application designed to hel
 
 Unlike traditional to-do lists, this system focuses on task completion and consistency, not just task creation. It integrates time-based reminders, repeating tasks, and productivity tracking to improve real-life routine management.
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 🎯 Objectives
 
@@ -22,7 +22,7 @@ Unlike traditional to-do lists, this system focuses on task completion and consi
 
 5)To handle repeating tasks and missed tasks efficiently
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## ✨ Key Features
 
@@ -108,7 +108,7 @@ At time
 
 ✨Completion status is tracked and reflected in weekly analytics
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 📂 Project Structure
 
@@ -120,7 +120,7 @@ Smart-Task-Scheduler/
 
 └── README.md    # Documentation
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 🚀 How to Run the Project
 
@@ -134,7 +134,7 @@ Run the application:
 
 Open index.html in any browser
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 🔔 Notification Setup
 
@@ -144,7 +144,7 @@ Open index.html in any browser
 
 3} Keep the tab active for alerts
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 💡 Key Learnings
 
@@ -158,7 +158,7 @@ Open index.html in any browser
 
 5.Integrating browser notification systems
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 🔮 Future Enhancements
 
@@ -172,7 +172,7 @@ Open index.html in any browser
 
 -Dark/Light mode toggle
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 📄 License
 
