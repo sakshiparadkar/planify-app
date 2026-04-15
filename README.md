@@ -1,8 +1,8 @@
-🚀 Smart Task Scheduler
+## 🚀 Smart Task Scheduler
 ------------------------------------------------------------------------------------------------------------------------------------------
-🔗 Live Application: https://planifytasks.netlify.app/
+## 🔗 Live Application: https://planifytasks.netlify.app/
 ------------------------------------------------------------------------------------------------------------------------------------------
-📌 Project Overview
+## 📌 Project Overview
 
 The Smart Task Scheduler is a web-based productivity application designed to help users efficiently manage their daily tasks with intelligent scheduling and reminder features.
 
@@ -10,7 +10,7 @@ Unlike traditional to-do lists, this system focuses on task completion and consi
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-🎯 Objectives
+## 🎯 Objectives
 
 1)To design a system that improves daily productivity and consistency
 
@@ -23,7 +23,7 @@ Unlike traditional to-do lists, this system focuses on task completion and consi
 5)To handle repeating tasks and missed tasks efficiently
 
 ------------------------------------------------------------------------------------------------------------------------------------------
-✨ Key Features
+## ✨ Key Features
 
 📋 Task Management
 
@@ -34,14 +34,14 @@ Unlike traditional to-do lists, this system focuses on task completion and consi
 ✨Mark tasks as completed
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-⏰ Scheduling System
+## ⏰ Scheduling System
 
 ✨Assign date and time to tasks
 
 ✨12-hour format (AM/PM) support
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-🔔 Notification System
+## 🔔 Notification System
 
 ✨Multiple reminders:
 
@@ -54,9 +54,10 @@ At time
 1 day before
 
 ✨Uses Browser Notifications API
+
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-🔁 Repeating Tasks
+## 🔁 Repeating Tasks
 
 ✨Daily repetition
 
@@ -65,7 +66,7 @@ At time
 ✨Tracks completion per occurrence
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-📊 Productivity Tracking
+## 📊 Productivity Tracking
 
 ✨Weekly completion percentage
 
@@ -74,19 +75,19 @@ At time
 ✨Day-wise completion tracking
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-📅 Dual Interface
+## 📅 Dual Interface
 
 ✨List View → Task-focused
 
 ✨Calendar View → Date-focused
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-🎯 Priority Management
+## 🎯 Priority Management
 
 ✨High, Medium, Low priority classification
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 ✨Frontend: HTML5, CSS3, JavaScript
 
 ✨Storage: LocalStorage API
@@ -94,7 +95,7 @@ At time
 ✨Notifications: Browser Notifications API
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-⚙️ System Workflow
+## ⚙️ System Workflow
 
 ✨User creates a task with date, time, and priority
 
@@ -107,7 +108,7 @@ At time
 ✨Completion status is tracked and reflected in weekly analytics
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-📂 Project Structure
+## 📂 Project Structure
 
 Smart-Task-Scheduler/
 
@@ -118,7 +119,7 @@ Smart-Task-Scheduler/
 └── README.md    # Documentation
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-🚀 How to Run the Project
+## 🚀 How to Run the Project
 
 Clone the repository:
 
@@ -131,7 +132,7 @@ Run the application:
 Open index.html in any browser
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-🔔 Notification Setup
+## 🔔 Notification Setup
 
 1} Click Enable Notifications in the app
 
@@ -140,7 +141,7 @@ Open index.html in any browser
 3} Keep the tab active for alerts
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-💡 Key Learnings
+## 💡 Key Learnings
 
 1.Practical implementation of JavaScript scheduling logic
 
@@ -153,7 +154,7 @@ Open index.html in any browser
 5.Integrating browser notification systems
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-🔮 Future Enhancements
+## 🔮 Future Enhancements
 
 -User authentication system
 
@@ -166,11 +167,11 @@ Open index.html in any browser
 -Dark/Light mode toggle
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-📄 License
+## 📄 License
 
 This project is licensed under the MIT License.
 
-👩‍💻 Author
+## 👩‍💻 Author
 
 Sakshi Paradkar
 Computer Science Student
