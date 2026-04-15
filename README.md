@@ -1,5 +1,5 @@
 🚀 Smart Task Scheduler
-
+------------------------------------------------------------------------------------------------------------------------------------------
 🔗 Live Application: https://planifytasks.netlify.app/
 ------------------------------------------------------------------------------------------------------------------------------------------
 📌 Project Overview
@@ -33,12 +33,14 @@ Unlike traditional to-do lists, this system focuses on task completion and consi
 
 ✨Mark tasks as completed
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 ⏰ Scheduling System
 
 ✨Assign date and time to tasks
 
 ✨12-hour format (AM/PM) support
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 🔔 Notification System
 
 ✨Multiple reminders:
@@ -53,6 +55,7 @@ At time
 
 ✨Uses Browser Notifications API
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 🔁 Repeating Tasks
 
 ✨Daily repetition
@@ -61,6 +64,7 @@ At time
 
 ✨Tracks completion per occurrence
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 📊 Productivity Tracking
 
 ✨Weekly completion percentage
@@ -69,16 +73,19 @@ At time
 
 ✨Day-wise completion tracking
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 📅 Dual Interface
 
 ✨List View → Task-focused
 
 ✨Calendar View → Date-focused
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 🎯 Priority Management
 
 ✨High, Medium, Low priority classification
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 🛠️ Tech Stack
 ✨Frontend: HTML5, CSS3, JavaScript
 
@@ -86,6 +93,7 @@ At time
 
 ✨Notifications: Browser Notifications API
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 ⚙️ System Workflow
 
 ✨User creates a task with date, time, and priority
@@ -98,6 +106,7 @@ At time
 
 ✨Completion status is tracked and reflected in weekly analytics
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 📂 Project Structure
 
 Smart-Task-Scheduler/
@@ -108,6 +117,7 @@ Smart-Task-Scheduler/
 
 └── README.md    # Documentation
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 🚀 How to Run the Project
 
 Clone the repository:
@@ -120,6 +130,7 @@ Run the application:
 
 Open index.html in any browser
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 🔔 Notification Setup
 
 1} Click Enable Notifications in the app
@@ -128,6 +139,7 @@ Open index.html in any browser
 
 3} Keep the tab active for alerts
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 💡 Key Learnings
 
 1.Practical implementation of JavaScript scheduling logic
@@ -140,6 +152,7 @@ Open index.html in any browser
 
 5.Integrating browser notification systems
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 🔮 Future Enhancements
 
 -User authentication system
@@ -152,6 +165,7 @@ Open index.html in any browser
 
 -Dark/Light mode toggle
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 📄 License
 
 This project is licensed under the MIT License.
