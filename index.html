@@ -347,3 +347,99 @@ function scheduleOne(task){
 function scheduleAll(){
   tasks.filter(t=>t.date>=td()&&!t.completed).forEach(scheduleOne);
 }
+function render(){
+  const today=td();
+  const wp=getWeekProgress();
+
+  let o=`
+  <div class="top">
+    <div>
+      <h1>Daily Planner</h1>
+      <div class="dd">${fmtL(today)}</div>
+    </div>
+    <div class="top-right">
+      <div class="view-toggle">
+        <button class="vt-btn ${view==='list'?'on':''}" onclick="view='list';render()">List</button>
+        <button class="vt-btn ${view==='cal'?'on':''}" onclick="view='cal';render()">Calendar</button>
+      </div>
+      <button class="btn btn-sm" onclick="settOpen=true;render()" title="Settings">⚙</button>
+      <button class="btn btn-sm btn-white" onclick="addOpen=true;editId=null;render()">+ Add Task</button>
+    </div>
+  </div>`;
+
+  if(!isGranted()){
+    o+=`<div class="nbar nbar-off">
+      <div><div>🔔 Notifications are off</div><div class="nbar-sub">Enable desktop reminders so you never miss a task</div></div>
+      <button class="btn btn-sm btn-white" onclick="enableNotif()">Enable</button>
+    </div>`;
+  } else {
+    o+=`<div class="nbar nbar-on">
+      <div><div>🟢 Notifications are active</div><div class="nbar-sub">Default reminder fires at ${fmt12(remindTime)} · multiple offsets supported</div></div>
+    </div>`;
+  }
+
+  const barW=wp.pct;
+  const emoji=wp.pct>=80?'🔥':wp.pct>=50?'💪':'⚡';
+  o+=`<div class="week-card">
+    <div class="week-top">
+      <div>
+        <div class="week-label">This Week's Progress</div>
+        <div class="week-sub">${wp.done} of ${wp.total} tasks completed</div>
+      </div>
+      <div style="text-align:right">
+        <div class="week-pct">${wp.pct}% ${emoji}</div>
+      </div>
+    </div>
+    <div class="bar-bg"><div class="bar-fill" style="width:${barW}%"></div></div>
+    <div class="week-days">`;
+
+  const dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  wp.days.forEach((ds,i)=>{
+    const dayTasks=getAllForRange(ds,ds);
+    const hasTasks=dayTasks.length>0;
+    const allDone=hasTasks&&dayTasks.every(t=>isInstanceDone(t));
+    const isT=ds===today;
+    const isSel=ds===weekSel;
+    let dotCls='wd-none';
+    if(hasTasks) dotCls=allDone?'wd-done':ds<today?'wd-miss':'wd-none';
+    o+=`<div class="wd ${isSel?'wd-sel':''}" onclick="weekSel=weekSel==='${ds}'?null:'${ds}';render()">
+      <div class="wd-name">${dayNames[i]}</div>
+      <div class="wd-dot ${dotCls}${isT?' wd-today':''}">${hasTasks?(allDone?'✓':dayTasks.length):'·'}</div>
+    </div>`;
+  });
+  o+=`</div></div>`;
+
+  if(weekSel){
+    const selDayInsts=getAllForDate(weekSel);
+    o+=`<div class="week-day-panel">
+      <div class="week-day-panel-title">
+        <span>📅 ${fmtL(weekSel)}</span>
+        <button onclick="weekSel=null;render()">✕ Close</button>
+      </div>`;
+    if(!selDayInsts.length){
+      o+=`<div style="font-size:13px;color:#4a7aa0;text-align:center;padding:14px 0">No tasks this day —
+        <button class="btn btn-sm btn-ghost" onclick="addOpen=true;editId=null;render()" style="font-size:12px;color:#6a9ee0">+ Add one</button>
+      </div>`;
+    } else {
+      const pending=selDayInsts.filter(t=>!isInstanceDone(t));
+      const done=selDayInsts.filter(t=>isInstanceDone(t));
+      if(pending.length){
+        if(done.length) o+=`<div class="section-header"><span style="color:#4a7aa0">Pending · ${pending.length}</span><div class="section-line"></div></div>`;
+        pending.forEach((inst,i)=>{ o+=renderCard(inst,today,i); });
+      }
+      if(done.length){
+        o+=`<div class="section-header"><span style="color:#4a7aa0">Completed · ${done.length}</span><div class="section-line"></div></div>`;
+        done.forEach((inst,i)=>{ o+=renderCard(inst,today,i); });
+      }
+    }
+    o+=`</div>`;
+  }
+
+  if(view==='list'){o+=renderList(today);}else{o+=renderCalendar(today);}
+  if(addOpen||editId) o+=renderAddModal();
+  if(settOpen) o+=renderSettModal();
+  document.getElementById('root').innerHTML=o;
+  const fi=document.getElementById('f-title');if(fi)fi.focus();
+  if(addOpen||editId) restoreReminderToggles();
+  if(addOpen||editId) restorePrioritySelect();
+}
