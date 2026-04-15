@@ -1,7 +1,7 @@
 ## 🚀 Smart Task Scheduler
-------------------------------------------------------------------------------------------------------------------------------------------
+
 ## 🔗 Live Application: https://planifytasks.netlify.app/
-------------------------------------------------------------------------------------------------------------------------------------------
+
 ## 📌 Project Overview
 
 The Smart Task Scheduler is a web-based productivity application designed to help users efficiently manage their daily tasks with intelligent scheduling and reminder features.
@@ -23,6 +23,7 @@ Unlike traditional to-do lists, this system focuses on task completion and consi
 5)To handle repeating tasks and missed tasks efficiently
 
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 ## ✨ Key Features
 
 📋 Task Management
@@ -32,14 +33,14 @@ Unlike traditional to-do lists, this system focuses on task completion and consi
 ✨Add notes for better context
 
 ✨Mark tasks as completed
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## ⏰ Scheduling System
 
 ✨Assign date and time to tasks
 
 ✨12-hour format (AM/PM) support
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 🔔 Notification System
 
@@ -55,7 +56,7 @@ At time
 
 ✨Uses Browser Notifications API
 
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 🔁 Repeating Tasks
 
@@ -64,7 +65,7 @@ At time
 ✨Weekly repetition
 
 ✨Tracks completion per occurrence
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 📊 Productivity Tracking
 
@@ -73,19 +74,19 @@ At time
 ✨Progress bar visualization
 
 ✨Day-wise completion tracking
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 📅 Dual Interface
 
 ✨List View → Task-focused
 
 ✨Calendar View → Date-focused
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 🎯 Priority Management
 
 ✨High, Medium, Low priority classification
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## 🛠️ Tech Stack
 ✨Frontend: HTML5, CSS3, JavaScript
@@ -93,7 +94,7 @@ At time
 ✨Storage: LocalStorage API
 
 ✨Notifications: Browser Notifications API
-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## ⚙️ System Workflow
 
@@ -106,6 +107,7 @@ At time
 ✨Notifications are triggered at defined intervals
 
 ✨Completion status is tracked and reflected in weekly analytics
+
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 📂 Project Structure
@@ -117,6 +119,7 @@ Smart-Task-Scheduler/
 ├── index.html   # Main application (UI + Logic)
 
 └── README.md    # Documentation
+
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 🚀 How to Run the Project
@@ -130,6 +133,7 @@ Open the project folder
 Run the application:
 
 Open index.html in any browser
+
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 🔔 Notification Setup
@@ -139,6 +143,7 @@ Open index.html in any browser
 2} Allow browser permissions
 
 3} Keep the tab active for alerts
+
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 💡 Key Learnings
@@ -152,6 +157,7 @@ Open index.html in any browser
 4.Using LocalStorage for persistent data
 
 5.Integrating browser notification systems
+
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 🔮 Future Enhancements
@@ -165,6 +171,7 @@ Open index.html in any browser
 -Drag-and-drop task management
 
 -Dark/Light mode toggle
+
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 📄 License
