@@ -443,3 +443,82 @@ function render(){
   if(addOpen||editId) restoreReminderToggles();
   if(addOpen||editId) restorePrioritySelect();
 }
+function renderList(today){
+  const todayT=getAllForDate(today);
+  const tmrDate=new Date(today+'T00:00:00');
+  tmrDate.setDate(tmrDate.getDate()+1);
+  const tomorrow=tmrDate.getFullYear()+'-'+String(tmrDate.getMonth()+1).padStart(2,'0')+'-'+String(tmrDate.getDate()).padStart(2,'0');
+  const futureEnd=new Date(today+'T00:00:00');
+  futureEnd.setMonth(futureEnd.getMonth()+3);
+  const futureEndStr=futureEnd.getFullYear()+'-'+String(futureEnd.getMonth()+1).padStart(2,'0')+'-'+String(futureEnd.getDate()).padStart(2,'0');
+  const pastStart=new Date(today+'T00:00:00');
+  pastStart.setMonth(pastStart.getMonth()-3);
+  const pastStartStr=pastStart.getFullYear()+'-'+String(pastStart.getMonth()+1).padStart(2,'0')+'-'+String(pastStart.getDate()).padStart(2,'0');
+  const yesterday=new Date(today+'T00:00:00');
+  yesterday.setDate(yesterday.getDate()-1);
+  const yesterdayStr=yesterday.getFullYear()+'-'+String(yesterday.getMonth()+1).padStart(2,'0')+'-'+String(yesterday.getDate()).padStart(2,'0');
+  const upcoming=getAllForRange(tomorrow,futureEndStr).sort((a,b)=>a.date.localeCompare(b.date));
+  const past=getAllForRange(pastStartStr,yesterdayStr).sort((a,b)=>b.date.localeCompare(a.date));
+  let list=tab==='today'?todayT:tab==='upcoming'?upcoming:tab==='past'?past:
+    getAllForRange(pastStartStr,futureEndStr).sort((a,b)=>a.date.localeCompare(b.date));
+  let o=`<div class="tabs">
+    <button class="tab ${tab==='today'?'on':''}" onclick="tab='today';render()">Today<span class="cnt">${todayT.length}</span></button>
+    <button class="tab ${tab==='upcoming'?'on':''}" onclick="tab='upcoming';render()">Upcoming<span class="cnt">${upcoming.length}</span></button>
+    <button class="tab ${tab==='past'?'on':''}" onclick="tab='past';render()">Past<span class="cnt">${past.length}</span></button>
+    <button class="tab ${tab==='all'?'on':''}" onclick="tab='all';render()">All</button>
+  </div>`;
+  if(!list.length){
+    const msgs={today:['🎉','All clear for today!','Nothing scheduled — add a task to stay on track.'],upcoming:['📅','Nothing upcoming','No tasks scheduled. Plan ahead and add some.'],past:['✅','No past tasks','Completed tasks will appear here.'],all:['📋','No tasks yet','Click "+ Add Task" to create your first one.']};
+    const [ico,title,sub]=msgs[tab]||msgs.all;
+    return o+`<div class="empty"><div class="empty-ico">${ico}</div><div class="empty-title">${title}</div><p>${sub}</p></div>`;
+  }
+  const pending=list.filter(t=>!isInstanceDone(t));
+  const done=list.filter(t=>isInstanceDone(t));
+  o+=`<div class="list">`;
+  if(pending.length){
+    if(done.length) o+=`<div class="section-header"><span>Pending · ${pending.length}</span><div class="section-line"></div></div>`;
+    pending.forEach((inst,i)=>{o+=renderCard(inst,today,i);});
+  }
+  if(done.length){
+    o+=`<div class="section-header"><span>Completed · ${done.length}</span><div class="section-line"></div></div>`;
+    done.forEach((inst,i)=>{o+=renderCard(inst,today,i);});
+  }
+  return o+`</div>`;
+}
+
+function renderCard(inst,today,idx=0){
+  const done=isInstanceDone(inst);
+  const baseId=inst._base||inst.id;
+  const isT=inst.date===today,isP=inst.date<today;
+  let dateTag='';
+  if(isT) dateTag=`<span class="tag t-today">● Today</span>`;
+  else if(isP) dateTag=`<span class="tag t-past">📅 ${fmtS(inst.date)}</span>`;
+  else dateTag=`<span class="tag t-future">📅 ${fmtS(inst.date)}</span>`;
+  const repeatTag=inst.repeat&&inst.repeat!=='none'?`<span class="tag t-repeat">↻ ${inst.repeat}</span>`:'';
+  const notifTag=!done&&isGranted()&&inst.date>=today?`<span class="tag t-notif">🔔 ${inst.time?fmt12(inst.time):fmt12(remindTime)}</span>`:'';
+  const timeTag=inst.time?`<span class="tag t-time">⏰ ${fmt12(inst.time)}</span>`:'';
+  const doneTag=done?`<span class="tag t-done">✓ Done</span>`:'';
+  const pri=inst.priority||'medium';
+  const priDotCls=pri==='high'?'pri-high':pri==='low'?'pri-low':'pri-medium';
+  const priTagCls=pri==='high'?'t-pri-high':pri==='low'?'t-pri-low':'t-pri-med';
+  const priLabel=pri==='high'?'🔴 High':pri==='low'?'🟢 Low':'🟡 Medium';
+  return `<div class="card ${isT?'is-today':isP?'is-past':''} ${done?'is-done':''}" style="animation-delay:${idx*.04}s">
+    <div class="card-inner">
+      <div class="card-left">
+        <div class="check ${done?'done':''}" onclick="toggleDone('${baseId}','${inst.date}')"></div>
+        <div class="card-body">
+          <div class="card-top-row">
+            <div class="pri-dot ${priDotCls}"></div>
+            <div class="ctitle ${done?'done':''}">${h(inst.title)}</div>
+          </div>
+          ${inst.notes?`<div class="cnote">${h(inst.notes)}</div>`:''}
+          <div class="tags">${dateTag}${timeTag}${repeatTag}<span class="tag ${priTagCls}">${priLabel}</span>${doneTag||notifTag}</div>
+        </div>
+      </div>
+      <div class="card-acts">
+        <button class="btn btn-sm" onclick="editId='${baseId}';addOpen=false;render()">Edit</button>
+        <button class="btn btn-sm btn-red" onclick="if(confirm('Delete this task?')){Object.keys(timers).filter(k=>k.startsWith('${baseId}-')).forEach(k=>{clearTimeout(timers[k]);delete timers[k]});tasks=tasks.filter(t=>t.id!=='${baseId}');save();render()}">Delete</button>
+      </div>
+    </div>
+  </div>`;
+}
