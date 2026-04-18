@@ -26,7 +26,7 @@ Unlike traditional to-do lists, this system focuses on task completion and consi
 
 ## ✨ Key Features
 
-📋 Task Management
+## 📋 Task Management
 
 ✨Create, update, and delete tasks
 
