@@ -568,3 +568,122 @@ function renderCalendar(today){
   }
   return o;
 }
+let selReminders=['at'];
+let selPriority='medium';
+
+function restoreReminderToggles(){
+  selReminders.forEach(r=>{
+    const el=document.querySelector(`.rchk[data-r="${r}"]`);
+    if(el)el.classList.add('on');
+  });
+}
+function toggleReminder(r){
+  const idx=selReminders.indexOf(r);
+  if(idx>=0) selReminders.splice(idx,1);
+  else selReminders.push(r);
+  const el=document.querySelector(`.rchk[data-r="${r}"]`);
+  if(el)el.classList.toggle('on',selReminders.includes(r));
+}
+function restorePrioritySelect(){
+  document.querySelectorAll('.pri-opt').forEach(el=>{
+    el.classList.remove('sel-high','sel-medium','sel-low');
+    if(el.dataset.p===selPriority){el.classList.add('sel-'+selPriority);}
+  });
+}
+function setPriority(p){
+  selPriority=p;
+  document.querySelectorAll('.pri-opt').forEach(el=>{el.classList.remove('sel-high','sel-medium','sel-low');});
+  const el=document.querySelector(`.pri-opt[data-p="${p}"]`);
+  if(el) el.classList.add('sel-'+p);
+}
+
+function buildTimePicker(existingTime){
+  const {h:eh,m:em,ap:eap}=to12(existingTime||'');
+  const noTime=!existingTime;
+  let hourOpts='<option value="">HH</option>';
+  for(let i=1;i<=12;i++){const sel=(eh&&parseInt(eh)===i&&!noTime)?'selected':'';hourOpts+=`<option value="${i}" ${sel}>${i}</option>`;}
+  const mins=['00','05','10','15','20','25','30','35','40','45','50','55'];
+  let minOpts='<option value="">MM</option>';
+  mins.forEach(m=>{const sel=(em&&em===m&&!noTime)?'selected':'';minOpts+=`<option value="${m}" ${sel}>${m}</option>`;});
+  const amSel=(!noTime&&eap==='AM')?'selected':'';
+  const pmSel=(!noTime&&eap==='PM')?'selected':'';
+  return `<div class="time-picker">
+    <select id="f-th" style="min-width:64px">${hourOpts}</select>
+    <span class="tp-sep">:</span>
+    <select id="f-tm" style="min-width:64px">${minOpts}</select>
+    <select id="f-tap" style="min-width:68px"><option value="AM" ${amSel}>AM</option><option value="PM" ${pmSel}>PM</option></select>
+    <button class="tp-clear" type="button" onclick="document.getElementById('f-th').value='';document.getElementById('f-tm').value='';document.getElementById('f-tap').value='AM';">Clear</button>
+  </div>`;
+}
+
+function buildSettTimePicker(t24){
+  const {h:eh,m:em,ap:eap}=to12(t24||'08:00');
+  let hourOpts='';
+  for(let i=1;i<=12;i++){const sel=parseInt(eh)===i?'selected':'';hourOpts+=`<option value="${i}" ${sel}>${i}</option>`;}
+  const mins=['00','05','10','15','20','25','30','35','40','45','50','55'];
+  let minOpts='';
+  mins.forEach(m=>{const sel=em===m?'selected':'';minOpts+=`<option value="${m}" ${sel}>${m}</option>`;});
+  return `<div class="time-picker">
+    <select id="s-th">${hourOpts}</select><span class="tp-sep">:</span>
+    <select id="s-tm">${minOpts}</select>
+    <select id="s-tap"><option value="AM" ${eap==='AM'?'selected':''}>AM</option><option value="PM" ${eap==='PM'?'selected':''}>PM</option></select>
+  </div>`;
+}
+
+function renderAddModal(){
+  const isEdit=!!editId,et=isEdit?tasks.find(t=>t.id===editId)||{}:{};
+  if(isEdit){selReminders=et.reminders&&et.reminders.length?[...et.reminders]:['at'];selPriority=et.priority||'medium';}
+  else if(!addOpen||selReminders.length===0){selReminders=['at'];}
+  const reminderKeys=['at','10min','1hr','1day'];
+  let rchecks='';
+  reminderKeys.forEach(r=>{const on=selReminders.includes(r);rchecks+=`<div class="rchk ${on?'on':''}" data-r="${r}" onclick="toggleReminder('${r}')">${REMINDER_LABELS[r]}</div>`;});
+  return `<div class="overlay" onclick="if(event.target===this){addOpen=false;editId=null;render()}">
+  <div class="modal">
+    <h2>${isEdit?'Edit Task':'New Task'}</h2>
+    <div class="fg"><label>Task Title *</label><input type="text" id="f-title" value="${h(et.title||'')}" placeholder="What needs to be done?" autocomplete="off"/></div>
+    <div class="fg"><label>Notes</label><textarea id="f-notes" placeholder="Details, steps, context…">${h(et.notes||'')}</textarea></div>
+    <div class="frow">
+      <div class="fg"><label>Date *</label><input type="date" id="f-date" value="${h(et.date||td())}"/></div>
+      <div class="fg"><label>Time <span style="font-size:9px;opacity:.5;text-transform:none;letter-spacing:0">(optional)</span></label>${buildTimePicker(et.time||'')}</div>
+    </div>
+    <div class="fg"><label>Priority</label>
+      <div class="pri-select">
+        <div class="pri-opt ${selPriority==='high'?'sel-high':''}" data-p="high" onclick="setPriority('high')">🔴 High</div>
+        <div class="pri-opt ${selPriority==='medium'?'sel-medium':''}" data-p="medium" onclick="setPriority('medium')">🟡 Medium</div>
+        <div class="pri-opt ${selPriority==='low'?'sel-low':''}" data-p="low" onclick="setPriority('low')">🟢 Low</div>
+      </div>
+    </div>
+    <div class="fg"><label>Repeat</label>
+      <select id="f-repeat">
+        <option value="none" ${(et.repeat||'none')==='none'?'selected':''}>No repeat</option>
+        <option value="daily" ${et.repeat==='daily'?'selected':''}>Daily</option>
+        <option value="weekly" ${et.repeat==='weekly'?'selected':''}>Weekly</option>
+      </select>
+    </div>
+    <div class="fg"><label>Reminders</label><div class="reminder-checks">${rchecks}</div></div>
+    ${isGranted()?`<div class="hint hint-g">🔔 ${selReminders.length} reminder${selReminders.length>1?'s':''} will fire for this task.</div>`:''}
+    <div class="mfoot">
+      <button class="btn" onclick="addOpen=false;editId=null;render()">Cancel</button>
+      <button class="btn btn-white" onclick="${isEdit?'doEdit()':'doAdd()'}"> ${isEdit?'Save Changes':'Add Task'}</button>
+    </div>
+  </div></div>`;
+}
+
+function renderSettModal(){
+  return `<div class="overlay" onclick="if(event.target===this){settOpen=false;render()}">
+  <div class="modal">
+    <h2>Settings</h2>
+    <div class="fg"><label>Default Daily Reminder Time</label>${buildSettTimePicker(remindTime)}
+      <div style="font-size:11.5px;color:#555;margin-top:6px;line-height:1.7">Used for tasks that don't have a specific time set.</div>
+    </div>
+    <div style="font-size:10.5px;font-weight:800;color:#444;text-transform:uppercase;letter-spacing:.1em;margin:1.1rem 0 9px">Notification Status</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px;font-weight:600">
+      <span style="color:${isGranted()?'#4dd472':'#888'}">${isGranted()?'✓ Enabled and active':'Not enabled'}</span>
+      ${!isGranted()?`<button class="btn btn-sm btn-white" onclick="enableNotif()">Enable Now</button>`:`<span style="color:#4dd472;font-size:12px;font-weight:700">ON</span>`}
+    </div>
+    <div class="mfoot">
+      <button class="btn" onclick="settOpen=false;render()">Cancel</button>
+      <button class="btn btn-white" onclick="saveSett()">Save Settings</button>
+    </div>
+  </div></div>`;
+}
