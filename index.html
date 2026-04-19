@@ -522,3 +522,49 @@ function renderCard(inst,today,idx=0){
     </div>
   </div>`;
 }
+function renderCalendar(today){
+  const firstDay=new Date(calYear,calMonth,1);
+  const lastDay=new Date(calYear,calMonth+1,0);
+  const startDow=firstDay.getDay()===0?6:firstDay.getDay()-1;
+  const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const fromD=new Date(calYear,calMonth,1).toISOString().slice(0,10);
+  const toD=new Date(calYear,calMonth+1,0).toISOString().slice(0,10);
+  const monthInsts=getAllForRange(fromD,toD);
+  let o=`
+  <div class="cal-nav">
+    <button class="btn btn-sm btn-ghost" onclick="if(calMonth===0){calMonth=11;calYear--;}else{calMonth--;}render()">← Previous</button>
+    <div class="cal-month">${monthNames[calMonth]} ${calYear}</div>
+    <button class="btn btn-sm btn-ghost" onclick="if(calMonth===11){calMonth=0;calYear++;}else{calMonth++;}render()">Next →</button>
+  </div>
+  <div class="cal-grid">`;
+  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(d=>{o+=`<div class="cal-head">${d}</div>`;});
+  for(let i=0;i<startDow;i++) o+=`<div></div>`;
+  for(let d=1;d<=lastDay.getDate();d++){
+    const ds=calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const dayInsts=monthInsts.filter(t=>t.date===ds);
+    const isT=ds===today;
+    const isSel=ds===calSel;
+    o+=`<div class="cal-day ${isT?'today':''} ${isSel?'selected':''}" onclick="calSel='${ds}';render()">
+      <div class="cal-dn">${d}</div>
+      <div class="cal-dots">`;
+    dayInsts.slice(0,6).forEach(inst=>{
+      const done=isInstanceDone(inst);
+      const rep=inst.repeat&&inst.repeat!=='none';
+      o+=`<div class="cal-dot ${done?'done':rep?'repeat':''}"></div>`;
+    });
+    if(dayInsts.length>6) o+=`<div style="font-size:8px;color:#555">+${dayInsts.length-6}</div>`;
+    o+=`</div></div>`;
+  }
+  o+=`</div>`;
+  if(calSel){
+    const selInsts=getAllForDate(calSel);
+    o+=`<div class="cal-sel-tasks"><div class="cal-sel-title">${fmtL(calSel)}</div>`;
+    if(!selInsts.length){
+      o+=`<div style="font-size:13px;color:#555;text-align:center;padding:14px 0">No tasks — <button class="btn btn-sm btn-ghost" onclick="addOpen=true;editId=null;render()" style="font-size:12px">+ Add one</button></div>`;
+    } else {
+      selInsts.forEach((inst,i)=>{o+=renderCard(inst,today,i);});
+    }
+    o+=`</div>`;
+  }
+  return o;
+}
