@@ -687,3 +687,59 @@ function renderSettModal(){
     </div>
   </div></div>`;
 }
+function readTimePicker(hId,mId,apId){
+  const h=document.getElementById(hId)?.value;
+  const m=document.getElementById(mId)?.value;
+  const ap=document.getElementById(apId)?.value||'AM';
+  if(!h||!m) return '';
+  return to24(h,m,ap);
+}
+
+function doAdd(){
+  const title=document.getElementById('f-title')?.value?.trim();
+  const notes=document.getElementById('f-notes')?.value?.trim();
+  const date=document.getElementById('f-date')?.value;
+  const time=readTimePicker('f-th','f-tm','f-tap');
+  const repeat=document.getElementById('f-repeat')?.value||'none';
+  if(!title){toast('Please enter a task title','err');return;}
+  if(!date){toast('Please pick a date','err');return;}
+  const id=Date.now().toString();
+  const task={id,title,notes,date,time,repeat,priority:selPriority,reminders:[...selReminders],completed:false,completedDates:[],scheduled:false,notified:false};
+  tasks.push(task);save();
+  addOpen=false;
+  if(isGranted())scheduleOne(task);
+  toast('Task added!','ok');
+  selReminders=['at'];selPriority='medium';
+  render();
+}
+
+function doEdit(){
+  const title=document.getElementById('f-title')?.value?.trim();
+  const notes=document.getElementById('f-notes')?.value?.trim();
+  const date=document.getElementById('f-date')?.value;
+  const time=readTimePicker('f-th','f-tm','f-tap');
+  const repeat=document.getElementById('f-repeat')?.value||'none';
+  if(!title){toast('Please enter a task title','err');return;}
+  const t=tasks.find(t=>t.id===editId);
+  if(t){
+    Object.keys(timers).filter(k=>k.startsWith(t.id+'-')).forEach(k=>{clearTimeout(timers[k]);delete timers[k];});
+    Object.assign(t,{title,notes,date,time,repeat,priority:selPriority,reminders:[...selReminders],completed:false,completedDates:[],scheduled:false});
+    save();if(isGranted())scheduleOne(t);
+  }
+  editId=null;selReminders=['at'];selPriority='medium';
+  toast('Task updated!','ok');render();
+}
+
+function saveSett(){
+  const t24=readTimePicker('s-th','s-tm','s-tap');
+  remindTime=t24||'08:00';
+  Object.keys(timers).forEach(k=>{clearTimeout(timers[k]);delete timers[k];});
+  tasks.forEach(t=>{t.scheduled=false;});
+  save();if(isGranted())scheduleAll();
+  settOpen=false;toast('Settings saved!','ok');render();
+}
+
+load();render();if(isGranted())scheduleAll();
+</script>
+</body>
+</html>
