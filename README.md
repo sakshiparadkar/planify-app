@@ -2,15 +2,11 @@
 
 🔗 **Live Application:** https://planifytasks.netlify.app/
 
----
-
 ## 📌 Project Overview
 
 **Smart Task Scheduler** is a web-based productivity application designed to help users efficiently manage their daily tasks through intelligent scheduling and reminder systems.
 
 Unlike traditional to-do list applications, this project emphasizes **task completion, consistency, and productivity tracking** rather than just task creation. It integrates time-based reminders, recurring task management, and performance analytics to support effective daily planning.
-
----
 
 ## 🎯 Objectives
 
@@ -19,8 +15,6 @@ Unlike traditional to-do list applications, this project emphasizes **task compl
 * Provide an intuitive and user-friendly interface
 * Track and visualize weekly performance
 * Efficiently manage repeating and missed tasks
-
----
 
 ## 📸 Application Screenshots
 
@@ -34,10 +28,9 @@ Unlike traditional to-do list applications, this project emphasizes **task compl
 ![image_alt](https://github.com/sakshiparadkar/planify-app/blob/9017fd8e3db3b4d8283f52623cf5ffd19e513e65/imgs/Screenshot%20(396).png)
 ## add-task.png
 ![image_alt](https://github.com/sakshiparadkar/planify-app/blob/9017fd8e3db3b4d8283f52623cf5ffd19e513e65/imgs/Screenshot%20(398).png)
-## priority-tasks.png
+## completed-remaining-tasks.png
 ![image_alt](https://github.com/sakshiparadkar/planify-app/blob/9017fd8e3db3b4d8283f52623cf5ffd19e513e65/imgs/Screenshot%20(399).png)
 
----
 
 ## ✨ Key Features
 
@@ -82,15 +75,12 @@ Unlike traditional to-do list applications, this project emphasizes **task compl
 
 * Categorization into High, Medium, and Low priority
 
----
-
 ## 🛠️ Tech Stack
 
 * **Frontend:** HTML5, CSS3, JavaScript
 * **Storage:** LocalStorage API
 * **Notifications:** Browser Notifications API
 
----
 
 ## ⚙️ System Workflow
 
@@ -100,7 +90,6 @@ Unlike traditional to-do list applications, this project emphasizes **task compl
 4. Notifications are triggered at defined intervals
 5. Completion status is tracked and reflected in weekly analytics
 
----
 
 ## 📂 Project Structure
 
@@ -125,7 +114,6 @@ cd planify-app
 
 * Open `index.html` in any web browser
 
----
 
 ## 🔔 Notification Setup
 
@@ -133,7 +121,6 @@ cd planify-app
 2. Allow browser notification permissions
 3. Keep the browser tab active to receive alerts
 
----
 
 ## 💡 Key Learnings
 
@@ -143,7 +130,6 @@ cd planify-app
 * Utilizing LocalStorage for persistent data
 * Integrating browser notification systems
 
----
 
 ## 🔮 Future Enhancements
 
@@ -153,13 +139,11 @@ cd planify-app
 * Drag-and-drop task management
 * Dark/Light mode support
 
----
 
 ## 📄 License
 
 This project is licensed under the MIT License.
 
----
 
 ## 👩‍💻 Author
 
