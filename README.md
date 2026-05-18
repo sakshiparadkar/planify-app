@@ -4,9 +4,9 @@
 
 ## 📌 Project Overview
 
-**Smart Task Scheduler** is a web-based productivity application designed to help users efficiently manage their daily tasks through intelligent scheduling and reminder systems.
+Planify is a modern productivity-focused task management web application designed to help users organize daily activities, manage recurring tasks, and improve consistency through intelligent reminders and progress tracking.
 
-Unlike traditional to-do list applications, this project emphasizes **task completion, consistency, and productivity tracking** rather than just task creation. It integrates time-based reminders, recurring task management, and performance analytics to support effective daily planning.
+Initially created as a personal productivity experiment, the project later evolved into a complete Business Analysis case study focused on understanding user workflows, requirement gathering, productivity challenges, and system planning.
 
 ## 🎯 Objectives
 
@@ -15,6 +15,26 @@ Unlike traditional to-do list applications, this project emphasizes **task compl
 * Provide an intuitive and user-friendly interface
 * Track and visualize weekly performance
 * Efficiently manage repeating and missed tasks
+* Build structured Business Analysis documentation for real-world product understanding
+
+## 📑 Business Analysis Documentation
+
+This project also includes professionally prepared BA deliverables such as:
+
+1.Problem Statement
+2.Stakeholder Analysis
+3.Gap Analysis
+4.User Stories
+5.Functional Requirements
+6.Non-Functional Requirements
+7.Workflow Diagrams
+-Task Lifecycle Workflow
+-Browser Notification Workflow
+8.Future Scope Planning
+
+These documents were created to better understand:
+
+user needs, workflow optimization, product improvements, and system scalability.
 
 ## 📸 Application Screenshots
 
